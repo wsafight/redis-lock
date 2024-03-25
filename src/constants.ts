@@ -1,4 +1,4 @@
-import { RedisLockOptions } from "./redis-lock";
+import { RedisLockOptions } from './type';
 
 export const DEFAULT_LOCK_PREFIX = 'lock';
 

@@ -26,7 +26,6 @@ export interface RedisLockParams extends RedisLockOnceParams {
   retryInterval: number;
 }
 
-
 export interface RedisUnLockParams {
   name: string;
   lockVal: string;
@@ -37,7 +36,6 @@ export interface RedisExpireParams {
   lockVal: string;
   time: number;
 }
-
 
 export interface RedisService {
   getClient: (name?: string) => any;

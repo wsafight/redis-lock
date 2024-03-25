@@ -39,20 +39,20 @@
   "peerDependencies": {
   },
   "devDependencies": {
-    "@modern-js/module-tools": "2.40.0",
-    "@modern-js/eslint-config": "2.40.0",
-    "@modern-js/tsconfig": "2.40.0",
-    "@modern-js-app/eslint-config": "2.40.0",
+    "@modern-js/module-tools": "2.48.3",
+    "@modern-js/eslint-config": "2.48.3",
+    "@modern-js/tsconfig": "2.48.3",
+    "@modern-js-app/eslint-config": "2.48.3",
     "rimraf": "5.0.5",
-    "lint-staged": "15.1.0",
-    "prettier": "3.1.0",
-    "husky": "8.0.3",
-    "typescript": "5.3.2",
-    "@types/jest": "29.5.9",
-    "@types/node": "20.9.3",
-    "@types/react": "18.2.38",
-    "@modern-js/plugin-testing": "2.40.0",
-    "np": "9.0.0"
+    "lint-staged":  "15.2.2",
+    "prettier": "3.2.5",
+    "husky": "9.0.11",
+    "typescript": "5.4.3",
+    "@types/jest": "29.5.12",
+    "@types/node": "20.11.30",
+    "@types/react": "18.2.69",
+    "@modern-js/plugin-testing":  "2.48.3",
+    "np": "10.0.2"
   },
   "sideEffects": [],
   "publishConfig": {

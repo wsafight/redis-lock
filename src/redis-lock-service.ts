@@ -7,11 +7,15 @@ import {
   RedisLockResult,
   RedisService,
   RedisUnLockParams,
-} from './redis-lock';
+} from './type';
 import { DEFAULT_LOCK_PREFIX, getDefaultOptions } from './constants';
 import { generateUid, sleep } from './utils';
 
 export class RedisLockService {
+  static generateUid(): string {
+    return generateUid();
+  }
+
   protected readonly redisService: RedisService;
 
   protected readonly options: RedisLockOptions;
@@ -41,10 +45,6 @@ export class RedisLockService {
       client: this.getClient(),
       finalName: this.prefix(name),
     };
-  }
-
-  static generateUid(): string {
-    return generateUid();
   }
 
   public async lockOnce({
@@ -114,6 +114,7 @@ export class RedisLockService {
     lockVal,
     time,
   }: RedisExpireParams): Promise<CommonRedisLockResult> {
+    console.log('lock', lockVal);
     const { client, finalName } = this.getRedisQueryParams(name);
     // TODO 这里有问题，应该是 pexpire
     const result = await client.pexpire(finalName, time);
