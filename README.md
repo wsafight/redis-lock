@@ -1,4 +1,4 @@
-# tool-library-template
+# tiny-redis-lock
 
 <!-- [![NPM Version](https://badgen.net/npm/v/tool-library-template)](https://www.npmjs.com/package/tool-library-template) -->
 
