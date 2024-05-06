@@ -1,3 +1,5 @@
+import { RedisLock } from './redis-lock';
+
 export interface RedisLockOptions {
   clientName?: string;
   prefix?: string;
@@ -11,8 +13,8 @@ export interface CommonRedisLockResult {
 }
 
 export interface RedisLockResult extends CommonRedisLockResult {
-  /** 锁的值 */
-  lockVal: string;
+  /** 锁 */
+  lock: RedisLock;
 }
 
 export interface RedisLockOnceParams {
@@ -27,13 +29,11 @@ export interface RedisLockParams extends RedisLockOnceParams {
 }
 
 export interface RedisUnLockParams {
-  name: string;
-  lockVal: string;
+  lock: RedisLock;
 }
 
 export interface RedisExpireParams {
-  name: string;
-  lockVal: string;
+  lock: RedisLock;
   time: number;
 }
 

@@ -1,4 +1,5 @@
 import { RedisLockService } from './redis-lock-service';
+import { RedisLock } from './redis-lock';
 
 export type {
   CommonRedisLockResult,
@@ -11,6 +12,6 @@ export type {
   RedisUnLockParams,
 } from './type';
 
-export { RedisLockService };
+export { RedisLockService, RedisLock };
 
 export default RedisLockService;
