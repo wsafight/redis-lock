@@ -13,6 +13,7 @@ import { generateUid, sleep } from './utils';
 import { LUA_LOCK, LUA_REFRESH, LUA_UNLOCK } from './lua-scripts';
 import { to } from './to';
 import { RedisLock } from './redis-lock';
+import { COMMAND_TIMED_OUT } from './error-msg';
 
 export class RedisLockService {
   static generateUid(): string {
@@ -147,9 +148,14 @@ export class RedisLockService {
 
     while (true) {
       // 如果上一次加锁成功，但是执行失败了，这时候续约相同的秒数（需要考虑一下）
-      const [, result] = await to(
+      const [err, result] = await to(
         client.eval(LUA_LOCK, 1, finalName, lockVal, expire),
       );
+
+      if (err?.message === COMMAND_TIMED_OUT) {
+        // 立即重试
+        continue;
+      }
 
       // 成功了，直接返回
       if (result === 1) {
@@ -299,8 +305,8 @@ export class RedisLockService {
       }
       const { isSuccess, errReason } = await this.pexpire({ lock, time });
       if (!isSuccess) {
-        // 如果错误等于 deadlineExceeded，代表 redis 执行超时
-        if (errReason === 'deadlineExceeded') {
+        // 如果错误等于 command_timed_out，代表 redis 执行超时
+        if (errReason === COMMAND_TIMED_OUT) {
           // 立即重试
           continue;
         } else {
