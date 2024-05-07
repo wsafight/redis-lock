@@ -90,7 +90,7 @@ export class RedisLockService {
     };
   }
 
-  public async unsafeLock({
+  public async lock({
     name,
     expire = 60 * 1000,
     retryInterval = 100,
@@ -129,7 +129,7 @@ export class RedisLockService {
    * 要注意一个问题，如果 redis 操作超时
    * 下一次再次执行 lockOnce 会出错,所以不能简单的使用 lockOnce
    */
-  public async lock({
+  public async safeLock({
     name,
     expire = 60 * 1000,
     retryInterval = 100,
