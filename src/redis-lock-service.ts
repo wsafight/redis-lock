@@ -13,7 +13,13 @@ import { generateUid, sleep } from './utils';
 import { LUA_LOCK, LUA_REFRESH, LUA_UNLOCK } from './lua-scripts';
 import { to } from './to';
 import { RedisLock } from './redis-lock';
-import { COMMAND_TIMED_OUT } from './error-msg';
+import {
+  COMMAND_TIMED_OUT,
+  LOCK_EXIST,
+  LOCK_FIELD_EMPTY,
+  LOCK_NOT_EXIST,
+  LOCK_STOP,
+} from './error-msg';
 
 export class RedisLockService {
   static generateUid(): string {
@@ -81,7 +87,7 @@ export class RedisLockService {
       return {
         isSuccess: false,
         lock,
-        errReason: 'lock already exist',
+        errReason: LOCK_EXIST,
       };
     }
 
@@ -184,7 +190,7 @@ export class RedisLockService {
     if (!lockKey || !lockVal) {
       return {
         isSuccess: false,
-        errReason: 'lockKey or lockVal is empty',
+        errReason: LOCK_FIELD_EMPTY,
       };
     }
 
@@ -192,7 +198,7 @@ export class RedisLockService {
     if (lock.getIsStop()) {
       return {
         isSuccess: false,
-        errReason: 'lock is stop',
+        errReason: LOCK_STOP,
       };
     }
 
@@ -217,7 +223,7 @@ export class RedisLockService {
     if (result === 0) {
       return {
         isSuccess: false,
-        errReason: 'lockVal not match or lock not exist',
+        errReason: LOCK_NOT_EXIST,
       };
     }
     return {
@@ -241,7 +247,7 @@ export class RedisLockService {
     if (!lockKey || !lockVal) {
       return {
         isSuccess: false,
-        errReason: 'lockKey or lockVal is empty',
+        errReason: LOCK_FIELD_EMPTY,
       };
     }
 
@@ -249,7 +255,7 @@ export class RedisLockService {
     if (lock.getIsStop()) {
       return {
         isSuccess: false,
-        errReason: 'lock is stop',
+        errReason: LOCK_STOP,
       };
     }
 
@@ -270,7 +276,7 @@ export class RedisLockService {
     if (result === 0) {
       return {
         isSuccess: false,
-        errReason: 'lockVal not match or lock not exist',
+        errReason: LOCK_NOT_EXIST,
       };
     }
 
@@ -292,7 +298,7 @@ export class RedisLockService {
     if (!lockKey || !lockVal) {
       return {
         isSuccess: false,
-        errReason: 'lockKey or lockVal is empty',
+        errReason: LOCK_FIELD_EMPTY,
       };
     }
 
@@ -300,7 +306,7 @@ export class RedisLockService {
       if (isStop) {
         return {
           isSuccess: false,
-          errReason: 'stop',
+          errReason: LOCK_STOP,
         };
       }
       const { isSuccess, errReason } = await this.pexpire({ lock, time });
